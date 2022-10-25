@@ -1,7 +1,7 @@
-
 package com.shashankdev.screenrecordprev;
 
 import android.view.WindowManager;
+import android.app.Activity;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -24,21 +24,18 @@ public class RNScreenRecordPreventModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void enabled(boolean _enable) {
-    if (_enable) {
-      this.reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
+    Activity activity = this.reactContext.getCurrentActivity();
+    if (activiy != null) {
+      activity.runOnUiThread(new Runnable() {
         @Override
         public void run() {
-          reactContext.getCurrentActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+          if (_enable) {
+            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+          } else {
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+          }
         }
       });
-    } else {
-      this.reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-          reactContext.getCurrentActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
-      });
-    }
+    }   
   }
-
 }
