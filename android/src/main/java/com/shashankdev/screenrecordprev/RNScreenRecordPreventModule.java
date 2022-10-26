@@ -25,7 +25,7 @@ public class RNScreenRecordPreventModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void enabled(boolean _enable) {
     Activity activity = this.reactContext.getCurrentActivity();
-    if (activiy != null) {
+    if (activity != null) {
       activity.runOnUiThread(new Runnable() {
         @Override
         public void run() {
